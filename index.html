@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <title>Simple Multi-Timer with Label</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Source+Serif+Pro" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="timer.js"></script>
+  <link rel="stylesheet" href="timer.css" />
+</head>
+<body>
+
+<audio id="chime-mp3" loop="true">
+  <source src="chime.mp3" type="audio/mp3" /> 
+</audio>
+
+<section class="container">
+  <h4>Instructions:</h4>
+  <p>Type in the desired time, then press <kbd>Tab</kbd> to enter the label for the timer (optional). Or use of the preset timers.</p>
+</section>
+
+<section class="container input-container">
+  <div class="row">
+    <div class="col-lg-3">
+      <div id="time-input" tabindex="1">
+        <span class="input-number">0</span><!--
+     --><span class="input-number">0</span><!--
+     --><span id="hrs">h</span>
+        <span class="input-number">0</span><!--
+     --><span class="input-number">0</span><!--
+     --><span id="mins">m</span>
+        <span class="input-number">0</span><!--
+     --><span class="input-number">0</span><!--
+     --><span id="secs">s</span>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary" id="btn-add-timer">Add</button>
+        <button type="button" class="btn btn-warning" id="btn-reset-timer">Reset</button>
+        <button type="button" class="btn btn-info" id="btn-clear-label">Clear Labels</button>
+      </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="btn-group btn-group-justified">
+        <a onclick="addTimer(60)" class="btn btn-default">1 mins</a>
+        <a onclick="addTimer(120)" class="btn btn-default">2 mins</a>
+        <a onclick="addTimer(180)" class="btn btn-default">3 mins</a>
+        <a onclick="addTimer(240)" class="btn btn-default">4 mins</a>
+        <a onclick="addTimer(300)" class="btn btn-default">5 mins</a>
+        <a onclick="addTimer(360)" class="btn btn-default">6 mins</a>
+        <a onclick="addTimer(420)" class="btn btn-default">7 mins</a>
+        <a onclick="addTimer(480)" class="btn btn-default">8 mins</a>
+        <a onclick="addTimer(540)" class="btn btn-default">9 mins</a>
+        <a onclick="addTimer(600)" class="btn btn-default">10 mins</a>
+      </div>
+      <div class="btn-group btn-group-justified">
+        <a onclick="addTimer(900)" class="btn btn-default">15 mins</a>
+        <a onclick="addTimer(1200)" class="btn btn-default">20 mins</a>
+        <a onclick="addTimer(1500)" class="btn btn-default">25 mins</a>
+        <a onclick="addTimer(1800)" class="btn btn-default">30 mins</a>
+        <a onclick="addTimer(2100)" class="btn btn-default">35 mins</a>
+        <a onclick="addTimer(2400)" class="btn btn-default">40 mins</a>
+        <a onclick="addTimer(2700)" class="btn btn-default">45 mins</a>
+        <a onclick="addTimer(3000)" class="btn btn-default">50 mins</a>
+        <a onclick="addTimer(3300)" class="btn btn-default">55 mins</a>
+        <a onclick="addTimer(3600)" class="btn btn-default">60 mins</a>
+      </div>
+      <div class="btn-group btn-group-justified">
+        <a onclick="addTimer(5400)" class="btn btn-default">1.5 hour</a>
+        <a onclick="addTimer(7200)" class="btn btn-default">2 hour</a>
+        <a onclick="addTimer(10800)" class="btn btn-default">3 hour</a>
+        <a onclick="addTimer(14400)" class="btn btn-default">4 hour</a>
+        <a onclick="addTimer(18000)" class="btn btn-default">6 hour</a>
+        <a onclick="addTimer(28800)" class="btn btn-default">8 hour</a>
+        <a onclick="addTimer(36000)" class="btn btn-default">10 hour</a>
+        <a onclick="addTimer(43200)" class="btn btn-default">12 hour</a>
+        <a onclick="addTimer(64800)" class="btn btn-default">18 hour</a>
+        <a onclick="addTimer(86400)" class="btn btn-default">24 hour</a>
+      </div>
+    </div>
+  </div>
+<hr />
+</section>
+
+<section class="container" id="timer-list">
+</section>
+  
+</body>
+</html>

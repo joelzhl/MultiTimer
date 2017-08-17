@@ -1,0 +1,77 @@
+.input-container {
+  cursor: text;
+}
+
+.input-container div.row:nth-child(2) {
+  margin-bottom: 30px;
+}
+
+.input-number {
+  font-family: 'Source Serif Pro', serif;
+  font-weight: bold;
+  font-size: xx-large;
+  border-right: #fff 1px solid;
+}
+
+#time-input {
+  margin: 0 0 5px 23px;
+  width: 167px;
+  padding: 10px 0 5px 15px;
+}
+
+#timer-list div h2 {
+  font-family: 'Source Serif Pro', serif;
+  margin-right: 10px;
+  display: inline;
+}
+
+#timer-list div span.glyphicon {
+  margin-right: 3px;
+  font-size: 20px;
+  transition: ease 0.25s;
+}
+
+span.glyphicon.glyphicon-repeat:hover {
+  color: lightgreen;
+}
+
+span.glyphicon.glyphicon-remove:hover {
+  color: orange;
+}
+
+#timer-list div h6 {
+  margin-bottom: 0;
+}
+
+#timer-list div h6 span.label {
+  left: 5px;
+  top: -2px;
+  position: relative;
+}
+
+#timer-list div form div {
+  top: 20px;
+  float: left;
+}
+
+@keyframes blink {
+  50% {
+    border-right: #888 1px solid;
+  }
+}
+
+.seconds-box-blink {
+  animation: blink .5s step-end infinite alternate;
+}
+
+.text-muted {
+  color: #eee;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
