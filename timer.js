@@ -139,7 +139,7 @@ function Timer(sec) {
         '  </ul>' +
         '</div>' +
         '<div class="input-group"><input class="form-control" type="text" placeholder="label..." name="lbl"></input></div></form></div>');
-    this.divElem.find("div h2").contextmenu(removeTimer);
+    // this.divElem.find("div h2").contextmenu(removeTimer);
 
     this.update = function () {
         var display = this.divElem.find("div h2");
