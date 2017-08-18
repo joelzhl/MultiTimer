@@ -26,8 +26,8 @@
 }
 
 #timer-list div span.glyphicon {
-  top: 28px;
-  font-size: 20px;
+  top: 26px;
+  font-size: 24px;
   transition: ease 0.25s;
   position: absolute;
 }
@@ -37,7 +37,7 @@ span.glyphicon.glyphicon-repeat:hover {
   color: lightgreen;
 }
 
-span.glyphicon.glyphicon-remove {left: 150px;}
+span.glyphicon.glyphicon-remove {left: 155px;}
 span.glyphicon.glyphicon-remove:hover {
   color: orange;
 }
