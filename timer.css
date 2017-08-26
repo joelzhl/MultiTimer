@@ -29,7 +29,6 @@
   top: 26px;
   font-size: 24px;
   transition: ease 0.25s;
-  position: absolute;
 }
 
 span.glyphicon.glyphicon-repeat {
@@ -105,8 +104,6 @@ span.glyphicon.glyphicon-edit:hover {
   box-shadow: 0px 0px 1px 0px;
   border-radius: 9px;
 }
-
-span.glyphicon.glyphicon-plus {}
 
 .btn-plus-hour, .btn-plus-min, .btn-plus-sec {
   position: absolute;
