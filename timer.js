@@ -115,9 +115,9 @@ function Timer(sec) {
     this.getOrigFormatted = function () {
         return this.format([~~(this.original / 3600), ~~(this.original % 3600 / 60), this.original % 60], true);
     };
-    this.divElem = $("<div />");
-    this.divElem.addClass("row timer-row");
-    this.divElem.data("tid", this.id);
+    this.timerRow = $("<div />");
+    this.timerRow.addClass("row timer-row");
+    this.timerRow.data("tid", this.id);
 
     var html = "";
     var labels = (typeof localStorage.label == "undefined") ? [] : localStorage.label.split('|');
@@ -125,9 +125,10 @@ function Timer(sec) {
         html = html + '<li><a onclick="fillLabel(event)">' + labels[i] + '</a></li>';
     }
 
-    var btns = '<span onclick="resetTimer(event)" class="glyphicon glyphicon-repeat green"></span>' +
-        '<span onclick="removeTimer(event)" class="glyphicon glyphicon-remove red"></span>';
-    this.divElem.html('<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4"><h6 class="text-information">' + this.getOrigFormatted() + 
+    var btns = '<span onclick="resetTimer(event)" class="glyphicon glyphicon-repeat"></span>' +
+        '<span onclick="removeTimer(event)" class="glyphicon glyphicon-remove"></span>' +
+        '<span onclick="toggleEdit(event)" class="glyphicon glyphicon-edit"></span>';
+    this.timerRow.html('<div class="col-lg-2 col-md-3 col-sm-4 col-xs-4"><h6 class="text-information">' + this.getOrigFormatted() + 
         '<span class="label label-danger" style="display: none">overtime</span></h6><h2 class="' +
         ((this.seconds < 0) ? "text-danger" : ((this.seconds >= 0 && this.seconds < 60) ? "text-success" : "")) +
         '">' + this.getFormatted() + "</h2>" + btns + "</div>" +
@@ -139,23 +140,32 @@ function Timer(sec) {
         '  </ul>' +
         '</div>' +
         '<div class="input-group"><input class="form-control" type="text" placeholder="label..." name="lbl"></input></div></form></div>');
-    // this.divElem.find("div h2").contextmenu(removeTimer);
+    // this.timerRow.find("div h2").contextmenu(removeTimer);
+
+    var btnGrpPlusMinus = $('<div class="btn-grp-plus-minus" />');
+    this.timerRow.children("div:first").append(btnGrpPlusMinus);
+    btnGrpPlusMinus.append('<a href="#" class="btn-plus-hour" onclick="changeTimer(event, 3600)"><span class="glyphicon glyphicon-plus"></span></a>');
+    btnGrpPlusMinus.append('<a href="#" class="btn-minus-hour" onclick="changeTimer(event, -3600)"><span class="glyphicon glyphicon-minus"></span></a>');
+    btnGrpPlusMinus.append('<a href="#" class="btn-plus-min" onclick="changeTimer(event, 60)"><span class="glyphicon glyphicon-plus"></span></a>');
+    btnGrpPlusMinus.append('<a href="#" class="btn-minus-min" onclick="changeTimer(event, -60)"><span class="glyphicon glyphicon-minus"></span></a>');
+    btnGrpPlusMinus.append('<a href="#" class="btn-plus-sec" onclick="changeTimer(event, 1)"><span class="glyphicon glyphicon-plus"></span></a>');
+    btnGrpPlusMinus.append('<a href="#" class="btn-minus-sec" onclick="changeTimer(event, -1)"><span class="glyphicon glyphicon-minus"></span></a>');
 
     this.update = function () {
-        var display = this.divElem.find("div h2");
+        var display = this.timerRow.find("div h2");
         display.removeClass();
         display.addClass((this.seconds <= 0) ? "text-danger" : ((this.seconds > 0 && this.seconds < 60) ? "text-success" : ""));
         display.html(this.getFormatted());
         if (this.seconds <= 0 && this.seconds > -6) {
             playChime = true;
         } 
-        var label = this.divElem.find("div h6 span.label");
+        var label = this.timerRow.find("div h6 span.label");
         if (this.seconds < 0) {
             label.css({"display": "inline"});
         } else {
             label.css({"display" : "none"});
         }
-        this.divElem.data("seconds", this.seconds);
+        this.timerRow.data("seconds", this.seconds);
     };
 }
 
@@ -222,9 +232,9 @@ function addTimer(sec) {
     if (tidx < 0) {
         console.log("error: bad timer index");
     } else if (tidx == 0) {
-        timerList.prepend(newTimer.divElem);
+        timerList.prepend(newTimer.timerRow);
     } else {
-        newTimer.divElem.insertAfter(timerList.children("div:nth-of-type(" + tidx + ")"));
+        newTimer.timerRow.insertAfter(timerList.children("div:nth-of-type(" + tidx + ")"));
     }
 }
 
@@ -239,18 +249,8 @@ function removeTimer(event) {
     return false;
 }
 
-function resetTimer(event) {
-    var timerRow = $(event.target).parents(".timer-row");
-    var tid = timerRow.data("tid");
-    var timer = timers.find(function (t) {
-        return t.id == tid;
-    });
-    console.log("resetting timer tid=" + tid);
-    console.log(timer);
-    timer.seconds = timer.original;
-    timer.update();
-    
-    // reorganize the timer list display
+// reorganize the timer list display
+function reorganizeTimer(timerRow) {
     var thisSecs = parseInt(timerRow.data("seconds"));
     var prevSecs = parseInt(timerRow.prev().data("seconds"));
     var nextSecs = parseInt(timerRow.next().data("seconds"));
@@ -262,6 +262,20 @@ function resetTimer(event) {
         timerRow.insertAfter(timerRow.next());
         nextSecs = parseInt(timerRow.next().data("seconds"));
     }
+}
+
+function resetTimer(event) {
+    var timerRow = $(event.target).parents(".timer-row");
+    var tid = timerRow.data("tid");
+    var timer = timers.find(function (t) {
+        return t.id == tid;
+    });
+    console.log("resetting timer tid=" + tid);
+    console.log(timer);
+    timer.seconds = timer.original;
+    timer.update();
+
+    reorganizeTimer(timerRow);
     
     return false;
 }
@@ -291,4 +305,24 @@ function submitLabel(event) {
 
 function fillLabel(event) {
     event.target.parentNode.parentNode.parentNode.parentNode["lbl"].value = event.target.text;
+}
+
+function toggleEdit(event) {
+    var timerRow = $(event.target).parents(".timer-row");
+    var btnGrpPlusMinus = timerRow.find(".btn-grp-plus-minus");
+    btnGrpPlusMinus.toggle(100);
+    reorganizeTimer(timerRow);
+}
+
+function changeTimer(event, change) {
+    var timerRow = $(event.target).parents(".timer-row");
+    var tid = timerRow.data("tid");
+    var timer = timers.find(function (t) {
+        return t.id == tid;
+    });
+
+    timer.seconds += change;
+    timer.update();
+    
+    reorganizeTimer(timerRow);
 }

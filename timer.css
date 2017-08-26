@@ -25,21 +25,42 @@
   display: inline;
 }
 
-#timer-list div span.glyphicon {
+.timer-row > div > span.glyphicon {
   top: 26px;
   font-size: 24px;
   transition: ease 0.25s;
   position: absolute;
 }
 
-span.glyphicon.glyphicon-repeat {left: 130px;}
-span.glyphicon.glyphicon-repeat:hover {
-  color: lightgreen;
+span.glyphicon.glyphicon-repeat {
+  left: 130px;
+  color: green;
 }
 
-span.glyphicon.glyphicon-remove {left: 155px;}
+span.glyphicon.glyphicon-repeat:hover {
+  color: #87E287;
+  transform: translate(1px, 1px);
+}
+
+span.glyphicon.glyphicon-remove {
+  left: 155px;
+  color: red;
+}
+
 span.glyphicon.glyphicon-remove:hover {
-  color: orange;
+  color: #FF9999;
+  transform: translate(1px, 1px);
+}
+
+span.glyphicon.glyphicon-edit {
+  left: 180px;
+  color: goldenrod;
+  top: 25px !important;
+}
+
+span.glyphicon.glyphicon-edit:hover {
+  color: #EEDFB9;
+  transform: translate(1px, 1px);
 }
 
 #timer-list div h6 {
@@ -71,10 +92,42 @@ span.glyphicon.glyphicon-remove:hover {
   color: #eee;
 }
 
-.red {
-  color: red;
+.btn-grp-plus-minus {
+  position: absolute;
+  top: 0;
+  display: none;
 }
 
-.green {
+.btn-grp-plus-minus > a > span.glyphicon {
+  background: white;
+  width: 14px;
+  height: 14px;
+  box-shadow: 0px 0px 1px 0px;
+  border-radius: 9px;
+}
+
+span.glyphicon.glyphicon-plus {}
+
+.btn-plus-hour, .btn-plus-min, .btn-plus-sec {
+  position: absolute;
   color: green;
+  top: 14px;
+}
+
+.btn-minus-hour, .btn-minus-min, .btn-minus-sec {
+  position: absolute;
+  color: red;
+  top: 50px;
+}
+
+.btn-plus-hour, .btn-minus-hour {
+  left: 10px;
+}
+
+.btn-plus-min, .btn-minus-min {
+  left: 48px;
+}
+
+.btn-plus-sec, .btn-minus-sec {
+  left: 86px;
 }
