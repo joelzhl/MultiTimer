@@ -323,6 +323,4 @@ function changeTimer(event, change) {
 
     timer.seconds += change;
     timer.update();
-    
-    reorganizeTimer(timerRow);
 }
