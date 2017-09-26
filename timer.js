@@ -304,7 +304,7 @@ function submitLabel(event) {
 }
 
 function fillLabel(event) {
-    event.target.parentNode.parentNode.parentNode.parentNode["lbl"].value = event.target.text;
+    $(event.target).parents("form").find("[name=lbl]").val(event.target.text);
 }
 
 function toggleEdit(event) {
