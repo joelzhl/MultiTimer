@@ -121,7 +121,7 @@ function Timer(sec) {
 
     var html = "";
     var labels = (typeof localStorage.label == "undefined") ? [] : localStorage.label.split('|');
-    for (i in labels) {
+    for (var i in labels) {
         html = html + '<li><a onclick="fillLabel(event)">' + labels[i] + '</a></li>';
     }
 
@@ -171,13 +171,13 @@ function Timer(sec) {
 
 function timerCountDown() {
     playChime = false;
-    for (t in timers) {
+    for (var t in timers) {
         timers[t].seconds--;
         timers[t].update();
     }
     if (playChime && chime.paused) {
         chime.currentTime = 0;
-        chime.play()
+        chime.play();
     } else {
         chime.pause();
     }
@@ -282,7 +282,7 @@ function resetTimer(event) {
 
 function submitLabel(event) {
     $("input").blur();
-    var lbl = event.target["lbl"].value;
+    var lbl = event.target.lbl.value;
     if (typeof localStorage.label != "undefined") {
         if (localStorage.label.indexOf(lbl) != -1) {
             return false;
@@ -294,7 +294,7 @@ function submitLabel(event) {
     }
     var html = "";
     var labels = localStorage.label.split('|');
-    for (i in labels) {
+    for (var i in labels) {
         html = html + '<li><a onclick="fillLabel(event)">' + labels[i] + '</a></li>';
     }
     $("ul.dropdown-menu").empty();
